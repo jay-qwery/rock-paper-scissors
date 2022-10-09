@@ -15,43 +15,33 @@ function playRound(playerSelection, computerSelection) {
     const playerInput = playerSelection.toLowerCase();
     const computerInput = computerSelection;
 
-    let result;
-
     if (playerInput === computerInput) {
-        result = "You draw!";
+        return "You draw!";
     } else if (playerInput === 'rock') {
         if (computerInput === 'paper') {
-            // player loses
-            result = getResult('lose', computerInput, playerInput);
             computerScore++;
+            return getResult('lose', computerInput, playerInput);
         } else if (computerInput === 'scissors') {
-            // player wins
-            result = getResult('win', playerInput, computerInput);
             playerScore++;
+            return getResult('win', playerInput, computerInput);          
         }
     } else if (playerInput === 'paper') {
         if (computerInput === 'scissors') {
-            // pc wins
-            result = getResult('lose', computerInput, playerInput);
             computerScore++;
+            return getResult('lose', computerInput, playerInput);
         } else if (computerInput === 'rock') {
-            // player wins
-            result = getResult('win', playerInput, computerInput);
             playerScore++;
+            return getResult('win', playerInput, computerInput);
         }
     } else if (playerInput === 'scissors') {
         if (computerInput === 'rock') {
-            // pc wins
-            result = getResult('lose', computerInput, playerInput);
             computerScore++;
+            return getResult('lose', computerInput, playerInput);
         } else if (computerInput === 'paper') {
-            // player wins
-            result = getResult('win', playerInput, computerInput);
             playerScore++;
+            return getResult('win', playerInput, computerInput);
         }
     }
-    console.log(result);
-    return (result);
 }
 
 function getResult (playerOutcome, winner, loser) {
@@ -64,7 +54,8 @@ function game() {
     for (let i = 0; i < 5; i++) {
         // Start round
         let playerChoice = prompt("Rock, paper or scissors?");
-        playRound(playerChoice, getComputerChoice());
+        let x = playRound(playerChoice, getComputerChoice());
+        console.log(x);
     }
 
     // then, calculate scores and print the winner of the 5 rounds
