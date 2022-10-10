@@ -14,10 +14,8 @@ function randomInt(min, max) {
 function playRound(textPrompt) {
     let playerSelection = prompt(textPrompt).toLowerCase();
     let computerSelection = getComputerChoice();
-    let outcome = ""; 
-
-    // Object that stores the options and outcomes
-    // and returns the outcome
+    
+    // Returns outcome of possible matchups
     const gameplayTree = {
         "rock": {
             "scissors": "win",
@@ -39,11 +37,9 @@ function playRound(textPrompt) {
     // If player mistypes, retry the round.
     if (gameplayTree[playerSelection] === undefined) {
         return playRound("You didn't enter rock, paper or scissors. Please try again.");
-    } else {
-        // Access the first level of keys with playerSelection
-        // and the inner properties with computerSelection
-        outcome = gameplayTree[playerSelection][computerSelection];
     }
+
+    let outcome = gameplayTree[playerSelection][computerSelection];
 
     // Return the outcome for the player, and increment score
     if (outcome === "win") {
@@ -58,7 +54,12 @@ function playRound(textPrompt) {
 }
 
 function getResult (playerOutcome, winningInput, losingInput) {
-    return "You " + playerOutcome + "!" + "\n" + (winningInput[0].toUpperCase() + winningInput.substring(1).toLowerCase()) + " beats " + losingInput + ".";
+    return "You " + playerOutcome + "!" + "\n" +
+    capitalise(winningInput) + " beats " + losingInput + ".";
+}
+
+function capitalise(string) {
+    return string[0].toUpperCase() + string.substring(1).toLowerCase();
 }
 
 function game() {
@@ -66,7 +67,7 @@ function game() {
     for (let i = 0; i < 5; i++) {
         let round = playRound("Rock, paper or scissors?");
 
-        console.log("Round" + (i + 1) + ": " + round);
+        console.log("Round " + (i + 1) + ": " + round);
     }
 
     // Print scores and winner
